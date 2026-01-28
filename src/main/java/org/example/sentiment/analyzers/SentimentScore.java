@@ -1,4 +1,4 @@
-package org.example.sentiment;
+package org.example.sentiment.analyzers;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

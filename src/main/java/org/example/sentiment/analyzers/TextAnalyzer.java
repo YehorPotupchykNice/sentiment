@@ -1,7 +1,6 @@
-package org.example.sentiment;
+package org.example.sentiment.analyzers;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 public class TextAnalyzer {
     private static long countWord(String[] words, String word) {
