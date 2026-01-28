@@ -19,7 +19,10 @@ public class TextAnalyzerTests {
         return Stream.of(
                 arguments("shit", new SentimentScore(1, 0, 0)),
                 arguments("mid", new SentimentScore(0, 1, 0)),
-                arguments("fire", new SentimentScore(0, 0, 1))
+                arguments("fire", new SentimentScore(0, 0, 1)),
+                arguments("fire fire", new SentimentScore(0, 0, 1)),
+                arguments("mid fire", new SentimentScore(0, 0.5f, 0.5f)),
+                arguments("mid fire shit", new SentimentScore(1f / 3, 1 / 3f, 1 / 3f))
 
         );
     }
