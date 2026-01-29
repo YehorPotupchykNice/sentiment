@@ -1,19 +1,24 @@
 package org.example.sentiment.dto;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import tools.jackson.databind.annotation.JsonDeserialize;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonDeserialize(using = SegmentDeserializer.class)
+//@JsonDeserialize(using = SegmentDeserializer.class)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = TextSegment.class, name = "text"),
+        @JsonSubTypes.Type(value = VoiceSegment.class, name = "voice")
+})
 public abstract class BaseSegment {
-    @JsonProperty
     private String id;
+    public String type;
 }

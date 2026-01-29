@@ -9,8 +9,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class AnalyzeRequest {
-    private List<BaseSegment> segments;
+@NoArgsConstructor
+public class AnalyzeResponse {
+   private List<SegmentScore> segmentScores;
 }

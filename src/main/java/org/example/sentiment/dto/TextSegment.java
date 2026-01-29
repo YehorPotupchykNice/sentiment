@@ -1,17 +1,15 @@
 package org.example.sentiment.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class TextSegment extends BaseSegment {
+    private String text;
+
     public TextSegment(String id, String text) {
-        super(id);
+        super(id, "text");
         this.text = text;
     }
-
-    private String text;
 }

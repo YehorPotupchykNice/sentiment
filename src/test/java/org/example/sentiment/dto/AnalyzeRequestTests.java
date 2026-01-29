@@ -1,6 +1,5 @@
 package org.example.sentiment.dto;
 
-import org.example.sentiment.analyzers.TextAnalyzer;
 import org.junit.jupiter.api.Test;
 import tools.jackson.databind.ObjectMapper;
 
@@ -29,13 +28,13 @@ public class AnalyzeRequestTests {
                 }""";
         var request = new ObjectMapper().readValue(json, AnalyzeRequest.class);
         System.out.println(request);
-        assertInstanceOf(TextSegment.class, request.getSegments()[0]);
-        assertEquals("text_segment", request.getSegments()[0].getId());
-        assertEquals("some text here", ((TextSegment) request.getSegments()[0]).getText());
+        assertInstanceOf(TextSegment.class, request.getSegments().get(0));
+        assertEquals("text_segment", request.getSegments().get(0).getId());
+        assertEquals("some text here", ((TextSegment) request.getSegments().get(0)).getText());
 
-        assertInstanceOf(VideoSegment.class, request.getSegments()[1]);
-        assertEquals("video_segment", request.getSegments()[1].getId());
-        assertEquals("video transcript here", ((VideoSegment) request.getSegments()[1]).getTranscript());
-        assertEquals("example.com", ((VideoSegment) request.getSegments()[1]).getUrl());
+        assertInstanceOf(VoiceSegment.class, request.getSegments().get(1));
+        assertEquals("video_segment", request.getSegments().get(1).getId());
+        assertEquals("video transcript here", ((VoiceSegment) request.getSegments().get(1)).getTranscript());
+        assertEquals("example.com", ((VoiceSegment) request.getSegments().get(1)).getUrl());
     }
 }
