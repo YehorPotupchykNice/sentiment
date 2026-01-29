@@ -24,12 +24,8 @@ public class AnalyzerControllerTests {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Test
-    public void testTextSegment() throws Exception {
-        var segmentId = "segment_a";
-        var segmentText = "fire mid";
-        var expectedScore = new SegmentScore(segmentId, 0f, 0.5f, 0.5f);
-        List<BaseSegment> segments = Arrays.asList(new TextSegment(segmentId, segmentText));
+    void testSegmentRequest(BaseSegment segment, String segmentId, SegmentScore expectedScore) throws Exception {
+        List<BaseSegment> segments = Arrays.asList(segment);
         var content = objectMapper.writeValueAsString(new AnalyzeRequest(segments));
         var mvcRes = mvc.perform(post("/analyze").contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(content))
@@ -37,12 +33,30 @@ public class AnalyzerControllerTests {
 
         var res = objectMapper.readValue( mvcRes.getResponse().getContentAsString(), AnalyzeResponse.class);
         assertEquals(1, res.getSegmentScores().size());
-        var segment = res.getSegmentScores().get(0);
+        var s = res.getSegmentScores().get(0);
         assertEquals(segmentId, segment.getId());
-        assertEquals(expectedScore.getNegative(), segment.getNegative());
-        assertEquals(expectedScore.getPositive(), segment.getPositive());
-        assertEquals(expectedScore.getNeutral(), segment.getNeutral());
+        assertEquals(expectedScore.getNegative(), s.getNegative());
+        assertEquals(expectedScore.getPositive(), s.getPositive());
+        assertEquals(expectedScore.getNeutral(), s.getNeutral());
+    }
 
+    @Test
+    public void testTextSegment() throws Exception {
+        var segmentId = "text_segment";
+        var segmentText = "fire mid";
+        var segment = new TextSegment(segmentId, segmentText);
+        var expectedScore = new SegmentScore(segmentId, 0f, 0.5f, 0.5f);
+        testSegmentRequest(segment, segmentId, expectedScore);
+
+    }
+
+    @Test
+    public void testVoiceSegment() throws Exception {
+        var segmentId = "voice_segment";
+        var segmentTranscript = "fire mid";
+        var expectedScore = new SegmentScore(segmentId, 0f, 0.5f, 0.5f);
+        var segment = new VoiceSegment(segmentId, "https://example.com/lol.wav", segmentTranscript);
+        testSegmentRequest(segment, segmentId, expectedScore);
     }
 
 }
