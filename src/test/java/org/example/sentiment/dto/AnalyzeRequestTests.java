@@ -19,10 +19,10 @@ public class AnalyzeRequestTests {
                       "text": "some text here"
                     },
                     {
-                      "id": "video_segment",
-                      "type": "video",
+                      "id": "voice_segment",
+                      "type": "voice",
                       "url": "example.com",
-                      "transcript": "video transcript here"
+                      "transcript": "transcript here"
                     }
                   ]
                 }""";
@@ -33,8 +33,8 @@ public class AnalyzeRequestTests {
         assertEquals("some text here", ((TextSegment) request.getSegments().get(0)).getText());
 
         assertInstanceOf(VoiceSegment.class, request.getSegments().get(1));
-        assertEquals("video_segment", request.getSegments().get(1).getId());
-        assertEquals("video transcript here", ((VoiceSegment) request.getSegments().get(1)).getTranscript());
+        assertEquals("voice_segment", request.getSegments().get(1).getId());
+        assertEquals("transcript here", ((VoiceSegment) request.getSegments().get(1)).getTranscript());
         assertEquals("example.com", ((VoiceSegment) request.getSegments().get(1)).getUrl());
     }
 }
