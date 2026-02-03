@@ -9,10 +9,6 @@ import java.util.ArrayList;
 
 public class SegmentAnalysisServiceImpl implements SegmentAnalysisService {
 
-    private SegmentScore toSegmentScore(String id, SentimentScore score) {
-        return new SegmentScore(id, score.getNegative(), score.getNeutral(), score.getPositive());
-    }
-
     @Override
     public AnalyzeResponse analyze(@NonNull AnalyzeRequest request) {
         if (request.getSegments() == null) {
@@ -23,12 +19,7 @@ public class SegmentAnalysisServiceImpl implements SegmentAnalysisService {
             if (segment == null) {
                 return;
             }
-            if (segment instanceof TextSegment t) {
-                scores.add(toSegmentScore(t.getId(), TextAnalyzer.sentimentScore(t.getText())));
-            }
-            if (segment instanceof VoiceSegment v) {
-                scores.add(toSegmentScore(v.getId(), TextAnalyzer.sentimentScore(v.getTranscript())));
-            }
+            scores.add(segment.toSegmentScore());
         });
         return new AnalyzeResponse(scores);
     }

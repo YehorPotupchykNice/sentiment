@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.sentiment.analyzers.SentimentScore;
 
 @Getter
 @Setter
@@ -21,4 +22,6 @@ import lombok.Setter;
 public abstract class BaseSegment {
     private String id;
     public String type;
+
+    public abstract SegmentScore toSegmentScore();
 }
