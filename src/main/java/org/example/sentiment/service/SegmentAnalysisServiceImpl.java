@@ -5,6 +5,8 @@ import org.example.sentiment.analyzers.SentimentScore;
 import org.example.sentiment.analyzers.TextAnalyzer;
 import org.example.sentiment.dto.*;
 
+import java.util.ArrayList;
+
 public class SegmentAnalysisServiceImpl implements SegmentAnalysisService {
 
     private SegmentScore toSegmentScore(String id, SentimentScore score) {
@@ -16,6 +18,6 @@ public class SegmentAnalysisServiceImpl implements SegmentAnalysisService {
         if (request.getSegments() == null) {
             throw new NullPointerException("segments is null");
         }
-        return null;
+        return new AnalyzeResponse(new ArrayList<>());
     }
 }
