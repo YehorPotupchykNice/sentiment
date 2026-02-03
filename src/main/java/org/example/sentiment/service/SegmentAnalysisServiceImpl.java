@@ -1,5 +1,6 @@
 package org.example.sentiment.service;
 
+import lombok.NonNull;
 import org.example.sentiment.analyzers.SentimentScore;
 import org.example.sentiment.analyzers.TextAnalyzer;
 import org.example.sentiment.dto.*;
@@ -11,7 +12,7 @@ public class SegmentAnalysisServiceImpl implements SegmentAnalysisService {
     }
 
     @Override
-    public  AnalyzeResponse analyze(AnalyzeRequest request) {
+    public  AnalyzeResponse analyze(@NonNull AnalyzeRequest request) {
         return null;
     }
 }
