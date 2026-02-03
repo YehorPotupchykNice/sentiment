@@ -12,15 +12,6 @@ public class SegmentAnalysisServiceImpl implements SegmentAnalysisService {
 
     @Override
     public  AnalyzeResponse analyze(AnalyzeRequest request) {
-        var segments = request.getSegments().stream().map(s-> {
-            if (s instanceof TextSegment t) {
-                return toSegmentScore(t.getId(), TextAnalyzer.sentimentScore(t.getText()));
-            }
-            if (s instanceof VoiceSegment v) {
-                return toSegmentScore(v.getId(), TextAnalyzer.sentimentScore(v.getTranscript()));
-            }
-            return null;
-        });
-        return new AnalyzeResponse(segments.toList());
+        return null;
     }
 }
