@@ -75,4 +75,22 @@ public class SegmentAnalysisServiceImplTests {
         assertEquals(expected.getSegmentScores().size(), result.getSegmentScores().size());
         assertTrue(result.getSegmentScores().containsAll(expected.getSegmentScores()));
     }
+
+    @Test
+    public void testVoiceInRequest() {
+        var segmentAnalysisService = new SegmentAnalysisServiceImpl();
+
+        var segmentId = "voice_segment";
+        var segmentTranscript = "fire mid";
+        var segment = new VoiceSegment(segmentId, "https://example.com/lol.wav", segmentTranscript);
+
+        var expectedScore = new SegmentScore(segmentId, 0f, 0.5f, 0.5f);
+        var expected = new AnalyzeResponse(Arrays.asList(new SegmentScore[]{expectedScore}));
+
+        var request = new AnalyzeRequest(Arrays.asList(new BaseSegment[]{segment}));
+        var result = segmentAnalysisService.analyze(request);
+
+        assertEquals(expected.getSegmentScores().size(), result.getSegmentScores().size());
+        assertTrue(result.getSegmentScores().containsAll(expected.getSegmentScores()));
+    }
 }

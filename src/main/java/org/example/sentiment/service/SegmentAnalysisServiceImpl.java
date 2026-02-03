@@ -26,6 +26,9 @@ public class SegmentAnalysisServiceImpl implements SegmentAnalysisService {
             if (segment instanceof TextSegment t) {
                 scores.add(toSegmentScore(t.getId(), TextAnalyzer.sentimentScore(t.getText())));
             }
+            if (segment instanceof VoiceSegment v) {
+                scores.add(toSegmentScore(v.getId(), TextAnalyzer.sentimentScore(v.getTranscript())));
+            }
         });
         return new AnalyzeResponse(scores);
     }
