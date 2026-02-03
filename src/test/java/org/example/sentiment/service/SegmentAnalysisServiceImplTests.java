@@ -54,7 +54,24 @@ public class SegmentAnalysisServiceImplTests {
         var request = new AnalyzeRequest(Arrays.asList(new BaseSegment[]{segment}));
         var result = segmentAnalysisService.analyze(request);
 
-//        assertIterableEquals(expected.getSegmentScores(), result.getSegmentScores());
+        assertEquals(expected.getSegmentScores().size(), result.getSegmentScores().size());
+        assertTrue(result.getSegmentScores().containsAll(expected.getSegmentScores()));
+    }
+
+    @Test
+    public void testSegmentAndNullInRequest() {
+        var segmentAnalysisService = new SegmentAnalysisServiceImpl();
+
+        var segmentId = "text_segment";
+        var segmentText = "fire mid";
+        var segment = new TextSegment(segmentId, segmentText);
+
+        var expectedScore = new SegmentScore(segmentId, 0f, 0.5f, 0.5f);
+        var expected = new AnalyzeResponse(Arrays.asList(new SegmentScore[]{expectedScore}));
+
+        var request = new AnalyzeRequest(Arrays.asList(new BaseSegment[]{segment, null}));
+        var result = segmentAnalysisService.analyze(request);
+
         assertEquals(expected.getSegmentScores().size(), result.getSegmentScores().size());
         assertTrue(result.getSegmentScores().containsAll(expected.getSegmentScores()));
     }
