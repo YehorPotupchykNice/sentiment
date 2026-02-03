@@ -18,4 +18,10 @@ public class SegmentAnalysisServiceImplTests {
         var segmentAnalysisService = new SegmentAnalysisServiceImpl();
         assertThrows(NullPointerException.class, () -> segmentAnalysisService.analyze(null));
     }
+
+    @Test
+    public void testNullInRequest() {
+        var segmentAnalysisService = new SegmentAnalysisServiceImpl();
+        assertThrows(NullPointerException.class, () -> segmentAnalysisService.analyze(new AnalyzeRequest()));
+    }
 }

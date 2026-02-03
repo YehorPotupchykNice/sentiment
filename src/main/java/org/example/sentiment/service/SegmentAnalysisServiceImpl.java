@@ -13,6 +13,9 @@ public class SegmentAnalysisServiceImpl implements SegmentAnalysisService {
 
     @Override
     public  AnalyzeResponse analyze(@NonNull AnalyzeRequest request) {
+        if (request.getSegments() == null) {
+            throw new NullPointerException("segments is null");
+        }
         return null;
     }
 }
