@@ -14,10 +14,19 @@ public class SegmentAnalysisServiceImpl implements SegmentAnalysisService {
     }
 
     @Override
-    public  AnalyzeResponse analyze(@NonNull AnalyzeRequest request) {
+    public AnalyzeResponse analyze(@NonNull AnalyzeRequest request) {
         if (request.getSegments() == null) {
             throw new NullPointerException("segments is null");
         }
-        return new AnalyzeResponse(new ArrayList<>());
+        var scores = new ArrayList<SegmentScore>();
+        request.getSegments().forEach(segment -> {
+            if (segment == null) {
+                return;
+            }
+            if (segment instanceof TextSegment t) {
+                scores.add(toSegmentScore(t.getId(), TextAnalyzer.sentimentScore(t.getText())));
+            }
+        });
+        return new AnalyzeResponse(scores);
     }
 }
